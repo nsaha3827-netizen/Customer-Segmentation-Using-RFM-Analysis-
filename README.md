@@ -1,16 +1,10 @@
-# Customer-Segmentation-Using-RFM-Analysis-
 # 📊 Customer Segmentation using RFM Analysis (Python)
 
 ## 🚀 Project Overview
 
-This project performs **RFM (Recency, Frequency, Monetary) analysis** on a real-world e-commerce dataset to segment customers based on their purchasing behavior.
+This project performs **RFM (Recency, Frequency, Monetary) analysis** on an e-commerce dataset to segment customers based on purchasing behavior using a **3-tier scoring model (1–3 scale)**.
 
-The goal is to help businesses identify:
-
-* High-value customers
-* Loyal customers
-* At-risk customers
-* Low-engagement customers
+The objective is to identify customer value groups and support better marketing and retention strategies.
 
 ---
 
@@ -19,13 +13,14 @@ The goal is to help businesses identify:
 * **Dataset Name:** Online Retail Dataset
 * **Source:** UCI Machine Learning Repository / Kaggle
 * **Records:** ~500,000 transactions
-* **Features Used:**
 
-  * CustomerID
-  * InvoiceDate
-  * InvoiceNo
-  * Quantity
-  * UnitPrice
+### Key Features:
+
+* CustomerID
+* InvoiceDate
+* InvoiceNo
+* Quantity
+* UnitPrice
 
 ---
 
@@ -44,71 +39,83 @@ The goal is to help businesses identify:
 
 * Removed missing Customer IDs
 * Filtered out negative/zero quantities
-* Converted date columns to datetime format
-* Created **TotalPrice** column
+* Converted date columns to datetime
+* Created **TotalPrice = Quantity × UnitPrice**
 
 ---
 
 ### 2️⃣ RFM Metric Calculation
 
 * **Recency:** Days since last purchase
-* **Frequency:** Number of transactions
-* **Monetary:** Total amount spent
+* **Frequency:** Number of unique transactions
+* **Monetary:** Total spending
 
 ---
 
-### 3️⃣ RFM Scoring
+### 3️⃣ RFM Scoring (1–3 Scale)
 
-* Applied **quantile-based scoring (1–4 scale)**
-* Generated individual scores:
+Customers were scored using **tertiles (quantiles into 3 groups)**:
 
-  * R Score
-  * F Score
-  * M Score
+* **R Score (1–3):** Higher = more recent
+* **F Score (1–3):** Higher = more frequent
+* **M Score (1–3):** Higher = higher spending
+
+👉 Final Score:
+
+```bash
+RFM_Score = R + F + M
+```
+
+👉 Score Range:
+
+* Minimum = 3
+* Maximum = 9
 
 ---
 
 ### 4️⃣ Customer Segmentation
 
-Customers were segmented into groups such as:
+Based on total RFM score:
 
-* 🏆 Champions
-* 🤝 Loyal Customers
-* ⚠️ At Risk
-* 💤 Others
-
----
-
-## 📊 Key Insights
-
-* A small percentage of customers contribute to a large portion of revenue
-* High-frequency customers are not always the highest spenders
-* Identified customers who are likely to churn
+| Score Range | Segment              |
+| ----------- | -------------------- |
+| 8 – 9       | High Value Customers |
+| 6 – 7       | Potential Loyalists  |
+| 4 – 5       | Low Value Customers  |
+| 3           | Lost Customers       |
 
 ---
 
-## 📈 Sample Output
+## 📊 Sample Output
 
-| CustomerID | Recency | Frequency | Monetary | Segment   |
-| ---------- | ------- | --------- | -------- | --------- |
-| 17850      | 10      | 50        | 5000     | Champions |
-| 13047      | 120     | 5         | 300      | At Risk   |
+| CustomerID | Recency | Frequency | Monetary | RFM Score | Segment              |
+| ---------- | ------- | --------- | -------- | --------- | -------------------- |
+| 17850      | 10      | 50        | 5000     | 9         | High Value Customers |
+| 13047      | 120     | 5         | 300      | 4         | Low Value Customers  |
+
+---
+
+## 📈 Key Insights
+
+* A small group of customers contributes the highest revenue
+* Many customers fall into mid-tier (potential growth segment)
+* Identified low-engagement customers who may churn
 
 ---
 
 ## 🎯 Business Impact
 
-* Enables targeted marketing campaigns
-* Improves customer retention strategies
-* Helps in personalized recommendations
+* Helps target **high-value customers** for retention
+* Identifies **potential customers** for upselling
+* Detects **lost customers** for re-engagement campaigns
 
 ---
 
 ## 📌 Future Improvements
 
-* Add data visualization (Seaborn / Matplotlib)
-* Build interactive dashboard (Power BI / Streamlit)
-* Deploy as a web app
+* Add visualizations (Matplotlib / Seaborn)
+* Build dashboard (Power BI / Streamlit)
+* Automate segmentation pipeline
 
 ---
 
@@ -121,7 +128,7 @@ git clone https://github.com/your-username/rfm-analysis.git
 # Install dependencies
 pip install pandas numpy
 
-# Run Jupyter Notebook
+# Run notebook
 jupyter notebook
 ```
 
@@ -131,5 +138,3 @@ jupyter notebook
 
 **Your Name**
 Aspiring Data Analyst
-
----
